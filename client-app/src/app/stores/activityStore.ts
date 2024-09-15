@@ -9,7 +9,7 @@ export default class ActivityStore {
     selectedActivity: Activity | undefined = undefined;
     editMode = false;
     loading = false
-    loadingInitial = true
+    loadingInitial = false
 
     constructor() {
         /*makeObservable(this, {
@@ -24,7 +24,8 @@ export default class ActivityStore {
         return Array.from(this.activityRegistry.values()).sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
     }
 
-    loadActivities = async () => {     
+    loadActivities = async () => {
+        this.loadingInitial = true
         try {
             const activities = await agent.Activities.list()
             runInAction(() => {
@@ -44,13 +45,20 @@ export default class ActivityStore {
 
     loadActivity = async (id: string) => {
         let activity = this.getActivity(id)
-        if (activity) this.selectedActivity = activity
+        if (activity) {
+            this.selectedActivity = activity
+            return activity
+        } 
         else {
             this.loadingInitial = true
             try {
-                activity = await agent.Activities.details(id)
-                this.setActivity(activity)
-                this.loadingInitial = false
+                const activityReturned = await agent.Activities.details(id)              
+                runInAction(() => {
+                    this.setActivity(activityReturned)
+                    this.selectedActivity = activityReturned
+                    this.loadingInitial = false                   
+                })
+                return activityReturned
             } catch (error) {
                 console.log(error)
                 this.loadingInitial = false
