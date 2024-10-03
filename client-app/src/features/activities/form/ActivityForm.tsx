@@ -7,6 +7,7 @@ import { Activity } from "../../../app/models/activity";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { v4 as uuid } from 'uuid'
 import { Formik, Form, Field } from "formik";
+import * as Yup from 'yup'
 
 export default observer(function ActivityForm() {
     const { activityStore } = useStore()
@@ -22,6 +23,10 @@ export default observer(function ActivityForm() {
         date: '',
         city: '',
         venue: '',
+    })
+
+    const validationSchema = Yup.object({
+
     })
 
     useEffect(() => {
