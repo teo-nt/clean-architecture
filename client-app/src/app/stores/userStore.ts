@@ -22,14 +22,25 @@ export default class UserStore {
             runInAction(() => this.user = user)
             router.navigate('/activities')
         } catch (err) {
+            console.log(err)
             throw err
         }
     }
 
     logout = () => {
         store.commonStore.setToken(null)
-        localStorage.removeItem('jwt')
         this.user = null
         router.navigate('/')
+    }
+
+    getUser = async () => {
+        try {
+            const user = await agent.Account.current()
+            runInAction(() => {
+                this.user = user
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
