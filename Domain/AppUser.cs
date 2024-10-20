@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain
 {
@@ -13,5 +8,6 @@ namespace Domain
         public string? Bio { get; set; }
 
         public ICollection<ActivityAttendee> Activities { get; set; } = new HashSet<ActivityAttendee>();
+        public ICollection<Photo> Photos { get; set; } = new HashSet<Photo>();
     }
 }
