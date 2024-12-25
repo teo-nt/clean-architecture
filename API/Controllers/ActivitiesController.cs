@@ -9,7 +9,7 @@ namespace API.Controllers
     public class ActivitiesController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetActivities() 
+        public async Task<IActionResult> GetActivities()
         {
             return HandleResult(await Mediator.Send(new List.Query()));
         }
@@ -17,14 +17,14 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivity(Guid id)
         {
-            var result = await Mediator.Send(new Details.Query { Id = id});
+            var result = await Mediator.Send(new Details.Query { Id = id });
 
             return HandleResult(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateActivity(Activity activity)
-        {  
+        {
             return HandleResult(await Mediator.Send(new Create.Command { Activity = activity }));
         }
 

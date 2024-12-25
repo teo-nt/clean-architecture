@@ -9,7 +9,7 @@ namespace Application.Activities
 {
     public class List
     {
-        public class Query : IRequest<Result<List<ActivityDto>>> {}
+        public class Query : IRequest<Result<List<ActivityDto>>> { }
 
         public class Handler : IRequestHandler<Query, Result<List<ActivityDto>>>
         {
