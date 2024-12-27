@@ -12,7 +12,6 @@
     <Folder Include="src\app\common\form\" />
     <Folder Include="src\app\common\modals\" />
     <Folder Include="src\app\common\options\" />
-    <Folder Include="src\app\models\" />
     <Folder Include="src\app\api\" />
     <Folder Include="src\app\router\" />
     <Folder Include="src\features\activities\details\" />
