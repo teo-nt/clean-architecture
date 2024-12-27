@@ -24,11 +24,16 @@ export default class CommentStore {
             this.hubConnection.start().catch(error => console.log('Error establishing connection: ', error))
 
             this.hubConnection.on('LoadComments', (comments: ChatComment[]) => {
-                runInAction(() => this.comments = comments)
+                runInAction(() => {
+                    comments.forEach(comment => {
+                        comment.createdAt = comment.createdAt + 'Z'
+                    })
+                    this.comments = comments
+                })
             })
 
             this.hubConnection.on('ReceiveComment', (comment: ChatComment) => {
-                runInAction(() => this.comments.push(comment))
+                runInAction(() => this.comments.unshift(comment))
             })
         }
     }
